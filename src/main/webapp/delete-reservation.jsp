@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>予約取消画面</title>
 </head>
 <body>
 	<h1>予約を取消しますか？</h1>
@@ -16,27 +16,24 @@
 			<th>電話番号</th>
 			<th>料金</th>
 			<th>最大人数</th>
-			<th>設備</th>
-			<th>支払方法</th>
 		</tr>
 		<tr>
-			<td>キャンプ場</td>
+			<td>モラップキャンプ場</td>
 			<td>北海道</td>
-			<td>0909</td>
-			<td>254</td>
-			<td>10</td>
-			<td>aaa</td>
-			<td>現金</td>
+			<td>0123-25-2201</td>
+			<td>1300</td>
+			<td>6</td>
 		</tr>
 	</table>
 	<!-- 削除実行 -->
-	<form action="" method="">
-		<input type="hidden" name="">
-		<input type="submit" name="" value="取り消す">
+	<form action="DeleteReservation" method="post">
+		<input type="hidden" name="reserveId" value="予約ID">
+		<input type="submit" name="" value=予約取消>
 	</form>
 	<!-- 予約確認画面へ戻る -->
-	<form action="" method="">
-		<input type="submit" name="" value="予約確認画面へ戻る">
+	<form action="Confirmation" method="get">
+		<input type="hidden" name="reserveId" value="予約ID">
+		<input type="submit" value="予約確認画面へ戻る">
 	</form>
 </body>
 </html>

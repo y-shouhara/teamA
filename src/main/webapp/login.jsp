@@ -8,15 +8,15 @@
 </head>
 <body>
 	<h1>ログイン</h1>
-	<form action="" method="">
+	<form action="Auth" method="post">
 		<label>ユーザー名：</label>
-		<input type="text" name=""><br>
+		<input type="text" name="userName"><br>
 		<label>パスワード：</label>
-		<input type="password" name=""><br>
+		<input type="password" name="pass"><br>
 		<input type="submit" value="ログイン">
 	</form>
-	<form action="" method="">
-		<input type="submit" name="" value="一覧表示へ戻る">
+	<form action="campingList" method="get">
+		<input type="submit" value="一覧表示へ戻る">
 	</form>
 </body>
 </html>
