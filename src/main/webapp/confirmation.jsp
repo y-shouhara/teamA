@@ -16,25 +16,25 @@
 			<th>電話番号</th>
 			<th>料金</th>
 			<th>最大人数</th>
-			<th>設備</th>
-			<th>支払方法</th>
 		</tr>
 		<tr>
-			<td>キャンプ場</td>
+			<td>モラップキャンプ場</td>
 			<td>北海道</td>
-			<td>0909</td>
-			<td>254</td>
-			<td>10</td>
-			<td>aaa</td>
-			<td>現金</td>
+			<td>0123-25-2201</td>
+			<td>1300</td>
+			<td>6</td>
+			<td>
+				<form action="DeleteReservation" method="get">
+					<input type="submit" value="予約取消">
+					<input type="hidden" name="reserveId" value="予約ID">
+				</form> 
+			</td>
 		</tr>
 	</table>
-	 <form action="" method="">
-		<input type="submit" value="キャンセル">
-	</form> 
+
 	<!-- 一覧表示へ戻る -->
-	<form action="" method="">
-		<input type="submit" name="" value="一覧表示へ戻る">
+	<form action="CampList" method="get">
+		<input type="submit" value="一覧表示へ戻る">
 	</form>
 </body>
 </html>
