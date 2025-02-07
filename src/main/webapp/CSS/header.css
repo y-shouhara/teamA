@@ -1,0 +1,12 @@
+@charset "UTF-8";
+.header__gest{
+	display: flex;
+}
+
+.header{
+	display: flex;
+}
+
+.header__userLabel{
+	padding-right: 30px;
+}
