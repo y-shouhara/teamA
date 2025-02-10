@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import model.dao.LoginDAO;
+import model.entity.LoginBean;
+
 /**
  * Servlet implementation class AuthServlet
  */
@@ -52,6 +55,41 @@ public class AuthServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		//ログイン認証を行う処理
+		//文字化け対策
+		request.setCharacterEncoding("UTF-8");
+		//リクエストパラメータの取得
+		String userName = request.getParameter("userName");
+		String pass = request.getParameter("pass");
+		//LoginDAOのインスタンス生成
+		LoginDAO loginDAO = new LoginDAO();
+		//ユーザー名が存在しているか確認
+		LoginBean loginBean = loginDAO.getLogin(userName);
+		//ユーザー名が存在していない場合はログイン画面へ遷移
+		if (loginBean == null) {
+			request.setAttribute("errorMsg", "入力されたユーザー名は存在しません。");
+			//画面遷移設定
+			RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+			rd.forward(request, response);
+		}
+		//リクエストパラメータのパスワードをソルト＋ハッシュに変換
+		String salt = loginBean.getSalt();
+		String resultHashSalt = loginDAO.getHashSalt(salt, pass);
+		//DBとリクエストのソルト＋ハッシュが一致しているか確認
+		if (resultHashSalt.equals(loginBean.getHashSolt())) {
+			//セッションの作成
+			HttpSession session = request.getSession();
+			session.setAttribute("userName", userName);
+			session.setAttribute("managerId", loginBean.getManagerId());
+		} else {
+			//エラーメッセージの設定
+			request.setAttribute("errorMsg", "パスワードが違います。");
+			//画面遷移設定
+			RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+			rd.forward(request, response);
+		}
+		//画面遷移設定
+		RequestDispatcher rd = request.getRequestDispatcher("camp-list.jsp");
+		rd.forward(request, response);
 	}
 
 }

@@ -12,6 +12,15 @@ public class LoginBean implements Serializable {
 	//publicな引数無しのコンストラクタを定義
 	public LoginBean() {
 	}
+
+	//データ格納用のコンストラクタ
+	public LoginBean(String loginId, String salt, String hashSolt, int managerId) {
+		this.loginId = loginId;
+		this.salt = salt;
+		this.hashSolt = hashSolt;
+		this.managerId = managerId;
+	}
+
 	//アクセッサ
 
 	public String getLoginId() {
