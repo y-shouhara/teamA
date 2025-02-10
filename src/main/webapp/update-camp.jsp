@@ -8,21 +8,21 @@
 </head>
 <body>
 	<h1>キャンプ場編集</h1>
-	<form action="" method="">
+	<form action="UpdateCamp" method="post">
 		<label>名称</label>
-		<input type="text" name=""><br>
+		<input type="text" name="campName"><br>
 		<label>所在地</label>
-		<input type="text" name=""><br>
+		<input type="text" name="location"><br>
 		<label>電話番号</label>
-		<input type="tel" name=""><br>
+		<input type="tel" name="tel"><br>
 		<label>料金</label>
-		<input type="number" name=""><br>
+		<input type="number" name="charge"><br>
 		<label>最大人数</label>
-		<input type="number" name=""><br>
-		<input type="submit" name="" value="編集">
+		<input type="number" name="capacity"><br>
+		<input type="submit"value="編集">
 	</form>
-	<form action="" method="">
-		<input type="submit" name="" value="一覧表示へ戻る">
+	<form action="CampList" method="get">
+		<input type="submit" value="一覧表示へ戻る">
 	</form>
 </body>
 </html>

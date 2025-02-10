@@ -18,21 +18,21 @@
 			<th>最大人数</th>
 		</tr>
 		<tr>
-			<td>キャンプ場</td>
+			<td>モラップキャンプ場</td>
 			<td>北海道</td>
-			<td>0909</td>
-			<td>254</td>
-			<td>10</td>
+			<td>0123-25-2201</td>
+			<td>1300</td>
+			<td>6</td>
 		</tr>
 	</table>
 	<!-- 削除実行 -->
-	<form action="" method="">
-		<input type="hidden" name="">
-	<input type="submit" name="" value="削除する">
+	<form action="DeleteCamp" method="post">
+		<input type="hidden" name="location">
+	<input type="submit"value="削除する">
 	</form>
 	<!-- 一覧表示画面へ戻る -->
-	<form action="" method="">
-		<input type="submit" name="" value="一覧表示へ戻る">
+	<form action="CampList" method="get">
+		<input type="submit"value="一覧表示へ戻る">
 	</form>
 </body>
 </html>
