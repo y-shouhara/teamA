@@ -32,9 +32,30 @@ public class CampDAO {
 	}
 
 	//編集登録処理
-	public int updateCampList(CampBean campBean) {
-		// TODO 自動生成されたメソッド・スタブ
-		return 0;
+	public int updateCampList(CampBean campBean) throws ClassNotFoundException, SQLException {
+		int resultNum = 0;
+		//SQL文（caharge修正必要）
+		String sql = "UPDATE camp SET";
+		sql += " camp_name=?,";
+		sql += " location=?,";
+		sql += " tel=?,";
+		sql += " caharge=?,";
+		sql += " capacity=?";
+		sql += " WHERE camp_name=?";
+		//データベースに接続
+		try (Connection con = ConnectionManager.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);) {
+			//プレースホルダに値を設定
+			pstmt.setString(1, campBean.getCampName());
+			pstmt.setString(2, campBean.getLocation());
+			pstmt.setString(3, campBean.getTel());
+			pstmt.setInt(4, campBean.getCharge());
+			pstmt.setInt(5, campBean.getCapacity());
+			pstmt.setString(6, campBean.getCampName());
+			//SQLの実行
+			resultNum = pstmt.executeUpdate();
+		}
+		return resultNum;
 	}
 
 }

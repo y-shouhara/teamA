@@ -66,19 +66,24 @@ public class UpdateCampServlet extends HttpServlet {
 		//文字化け対策
 		request.setCharacterEncoding("UTF-8");
 		//リクエストパラメータの取得
-		String campName = request.getParameter("");
-		String location = request.getParameter("");
-		String tel = request.getParameter("");
-		int charge = Integer.parseInt(request.getParameter(""));
-		int capacity = Integer.parseInt(request.getParameter(""));
+		String campName = request.getParameter("campName");
+		String location = request.getParameter("location");
+		String tel = request.getParameter("tel");
+		int charge = Integer.parseInt(request.getParameter("charge"));
+		int capacity = Integer.parseInt(request.getParameter("capacity"));
 		CampBean campBean = new CampBean(campName, location, tel, charge, capacity);
 		//CampDAOのインスタンス生成
 		CampDAO campDAO = new CampDAO();
-		//UPDATEの実行
-		int resultNum = campDAO.updateCampList(campBean);
-		//画面遷移先の設定
-		RequestDispatcher rd = request.getRequestDispatcher("update-camp.jsp");
-		rd.forward(request, response);
+		try {
+			//UPDATEの実行
+			int resultNum = campDAO.updateCampList(campBean);
+			//画面遷移先の設定
+			RequestDispatcher rd = request.getRequestDispatcher("camp-list.jsp");
+			rd.forward(request, response);
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
 
 	}
 
