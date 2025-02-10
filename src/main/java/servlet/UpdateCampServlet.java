@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -36,18 +37,24 @@ public class UpdateCampServlet extends HttpServlet {
 		//文字化け対策
 		request.setCharacterEncoding("UTF-8");
 		//リクエストパラメータの取得
-		String campName = request.getParameter("campName");
+		String campName = "大島ビーチファミリー";
+		//		String campName = request.getParameter("campName");
 		CampBean campBean = new CampBean();
 		campBean.setCampName(campName);
 		//CampDAOのインスタンス生成
 		CampDAO campDAO = new CampDAO();
 		//既存登録情報の取得
-		campBean = campDAO.getCampListByCampName(campBean);
-		//リクエストスコープの設定
-		request.setAttribute("campBean", campBean);
-		//画面遷移先の設定
-		RequestDispatcher rd = request.getRequestDispatcher("update-camp.jsp");
-		rd.forward(request, response);
+		try {
+			campBean = campDAO.getCampListByCampName(campBean);
+			//リクエストスコープの設定
+			request.setAttribute("campBean", campBean);
+			//画面遷移先の設定
+			RequestDispatcher rd = request.getRequestDispatcher("update-camp.jsp");
+			rd.forward(request, response);
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
 	}
 
 	/**
