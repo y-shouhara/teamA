@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	String errorMsg = (String) request.getAttribute("errorMsg");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,7 +11,9 @@
 </head>
 <body>
 	<h1>新規ユーザー登録</h1>
-	<label>エラーメッセージ表示</label>
+	<% if(errorMsg != null){ %>
+		<label><%= errorMsg %></label>
+	<% } %>
 	<form action="RegisterUser" method="post">
 		<label>ユーザー名：</label>
 		<input type="text" name="userName"><br>

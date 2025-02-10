@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>予約画面</title>
+<title>予約状況</title>
 </head>
 <body>
 	<h1>予約一覧</h1>

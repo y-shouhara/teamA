@@ -1,6 +1,8 @@
 package servlet;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -60,36 +62,41 @@ public class AuthServlet extends HttpServlet {
 		//リクエストパラメータの取得
 		String userName = request.getParameter("userName");
 		String pass = request.getParameter("pass");
+		String url = "camp-list.jsp";
 		//LoginDAOのインスタンス生成
 		LoginDAO loginDAO = new LoginDAO();
-		//ユーザー名が存在しているか確認
-		LoginBean loginBean = loginDAO.getLogin(userName);
-		//ユーザー名が存在していない場合はログイン画面へ遷移
-		if (loginBean == null) {
-			request.setAttribute("errorMsg", "入力されたユーザー名は存在しません。");
+		try {
+			//ユーザー名が存在しているか確認
+			LoginBean loginBean = loginDAO.getLogin(userName);
+			//ユーザー名が存在していない場合はログイン画面へ遷移
+			if (loginBean == null) {
+				request.setAttribute("errorMsg", "入力されたユーザー名は存在しません。");
+				//画面遷移設定
+				url = "login.jsp";
+			} else {
+				//リクエストパラメータのパスワードをソルト＋ハッシュに変換
+				String salt = loginBean.getSalt();
+				String resultHashSalt = loginDAO.getHashSalt(salt, pass);
+				//DBとリクエストのソルト＋ハッシュが一致しているか確認
+				if (resultHashSalt.equals(loginBean.getHashSolt())) {
+					//セッションの作成
+					HttpSession session = request.getSession();
+					session.setAttribute("userName", userName);
+					session.setAttribute("managerId", loginBean.getManagerId());
+				} else {
+					//エラーメッセージの設定
+					request.setAttribute("errorMsg", "パスワードが違います。");
+					//画面遷移設定
+					url = "login.jsp";
+				}
+			}
 			//画面遷移設定
-			RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher(url);
 			rd.forward(request, response);
+		} catch (ClassNotFoundException | SQLException | NoSuchAlgorithmException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
 		}
-		//リクエストパラメータのパスワードをソルト＋ハッシュに変換
-		String salt = loginBean.getSalt();
-		String resultHashSalt = loginDAO.getHashSalt(salt, pass);
-		//DBとリクエストのソルト＋ハッシュが一致しているか確認
-		if (resultHashSalt.equals(loginBean.getHashSolt())) {
-			//セッションの作成
-			HttpSession session = request.getSession();
-			session.setAttribute("userName", userName);
-			session.setAttribute("managerId", loginBean.getManagerId());
-		} else {
-			//エラーメッセージの設定
-			request.setAttribute("errorMsg", "パスワードが違います。");
-			//画面遷移設定
-			RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
-			rd.forward(request, response);
-		}
-		//画面遷移設定
-		RequestDispatcher rd = request.getRequestDispatcher("camp-list.jsp");
-		rd.forward(request, response);
 	}
 
 }

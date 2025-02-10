@@ -1,6 +1,8 @@
 package servlet;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -58,25 +60,35 @@ public class RegisterUserServlet extends HttpServlet {
 		}
 		//LoginDAOを生成
 		LoginDAO loginDAO = new LoginDAO();
-		//重複しているユーザーIDがないか確認
-		boolean checkUser = loginDAO.checkLoginId(userName);
-		if (checkUser == false) {
-			request.setAttribute("errorMsg", "既に使用されているユーザー名です。");
-			//画面遷移設定
-			RequestDispatcher rd = request.getRequestDispatcher("register-user.jsp");
-			rd.forward(request, response);
+
+		try {
+			//重複しているユーザーIDがないか確認
+			LoginBean distinctCheck = loginDAO.getLogin(userName);
+			if (distinctCheck != null) {
+				System.out.println("falseで来たよ");
+				request.setAttribute("errorMsg", "既に使用されているユーザー名です。");
+				//画面遷移設定
+				RequestDispatcher rd = request.getRequestDispatcher("register-user.jsp");
+				rd.forward(request, response);
+			} else {
+				//ソルトを生成
+				String salt = loginDAO.getSalt();
+				//ハッシュ化を実行
+				String hashSalt = loginDAO.getHashSalt(salt, pass);
+				//LoginBeanに登録用データの格納
+				LoginBean loginBean = new LoginBean(userName, salt, hashSalt, managerId);
+				//DBに新規ユーザー情報を登録
+				int resultNum = loginDAO.insertLogin(loginBean);
+				//画面遷移設定
+				RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+				rd.forward(request, response);
+			}
+
+		} catch (ClassNotFoundException | SQLException | NoSuchAlgorithmException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
 		}
-		//ソルトを生成
-		String salt = loginDAO.getSalt();
-		//ハッシュ化を実行
-		String hashSalt = loginDAO.getHashSalt(salt, pass);
-		//LoginBeanに登録用データの格納
-		LoginBean loginBean = new LoginBean(userName, salt, hashSalt, managerId);
-		//DBに新規ユーザー情報を登録
-		int resultNum = loginDAO.insertLogin(loginBean, pass);
-		//画面遷移設定
-		RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
-		rd.forward(request, response);
+
 	}
 
 }
