@@ -34,16 +34,21 @@
 			<th>最大人数</th>
 		</tr>
 		<tr>
-			<td>キャンプ場</td>
+			<td>モラップキャンプ場</td>
 			<td>北海道</td>
-			<td>0909</td>
-			<td>254</td>
-			<td>10</td>
+			<td>0123-25-2201</td>
+			<td>1300</td>
+			<td>6</td>
 			 <td>
-				<form action="" method="">
+				<form action="Reservation" method="get">
 				<input type="submit" value="予約">
 				</form>
 			</td>
+				<td>
+					<form action="RegistrCamp" method="post">
+					<input type="submit" value="登録">
+					</form>
+				</td>
 				<td>
 					<form action="UpdateCamp" method="get">
 					<input type="submit" value="編集">

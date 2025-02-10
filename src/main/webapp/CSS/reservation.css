@@ -1,0 +1,17 @@
+@charset "UTF-8";
+.dateChangeBox{
+	width: 40%;
+	display: flex;
+	justify-content: space-between;	
+}
+
+.table{
+	width: 40%;
+	table-layout: fixed;
+	border-collapse: collapse;
+}
+
+.table__data{
+	text-align: center;
+}
+
