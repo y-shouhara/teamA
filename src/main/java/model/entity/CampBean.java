@@ -7,11 +7,19 @@ public class CampBean implements Serializable {
 	private String campName;
 	private String location;
 	private String tel;
-	private int caharge;
+	private int charge;
 	private int capacity;
 
 	//publicな引数無しのコンストラクタを定義
 	public CampBean() {
+	}
+
+	public CampBean(String campName, String location, String tel, int charge, int capacity) {
+		this.campName = campName;
+		this.location = location;
+		this.tel = tel;
+		this.charge = charge;
+		this.capacity = capacity;
 	}
 
 	//アクセッサ
@@ -39,12 +47,12 @@ public class CampBean implements Serializable {
 		this.tel = tel;
 	}
 
-	public int getCaharge() {
-		return caharge;
+	public int getCharge() {
+		return charge;
 	}
 
-	public void setCaharge(int caharge) {
-		this.caharge = caharge;
+	public void setCharge(int charge) {
+		this.charge = charge;
 	}
 
 	public int getCapacity() {
