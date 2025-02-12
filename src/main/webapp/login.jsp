@@ -21,7 +21,7 @@
 		<input type="password" name="pass"><br>
 		<input type="submit" value="ログイン">
 	</form>
-	<form action="campingList" method="get">
+	<form action="CampList" method="get">
 		<input type="submit" value="一覧表示へ戻る">
 	</form>
 	<form action="RegisterUser" method="get">

@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -42,13 +43,18 @@ public class ConfirmationServlet extends HttpServlet {
 		String loginId = (String) session.getAttribute("userName");
 		//ReservationDAOのインスタンス生成
 		ReservationDAO reservationDAO = new ReservationDAO();
-		//指定ユーザー名の予約情報を取得
-		List<ReservationBean> reservationBeanList = reservationDAO.getReservationList(loginId);
-		//リクエストスコープの設定
-		request.setAttribute("reservationBeanList", reservationBeanList);
-		//画面遷移先の設定
-		RequestDispatcher rd = request.getRequestDispatcher("confirmation.jsp");
-		rd.forward(request, response);
+		try {
+			//指定ユーザー名の予約情報を取得
+			List<ReservationBean> reservationBeanList = reservationDAO.getReservationList(loginId);
+			//リクエストスコープの設定
+			request.setAttribute("reservationBeanList", reservationBeanList);
+			//画面遷移先の設定
+			RequestDispatcher rd = request.getRequestDispatcher("confirmation.jsp");
+			rd.forward(request, response);
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
 	}
 
 	/**

@@ -2,6 +2,7 @@ package model.entity;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class ReservationBean implements Serializable {
 	//フィールドの設定
@@ -9,10 +10,21 @@ public class ReservationBean implements Serializable {
 	private String loginId;
 	private String campName;
 	private LocalDate reserveDate;
-	private LocalDate insertDate;
+	private LocalDateTime insertDate;
+	private CampBean campBean;
 
 	//publicな引数無しのコンストラクタを定義
 	public ReservationBean() {
+	}
+
+	public ReservationBean(int reserveId, String loginId, String campName, LocalDate reserveDate,
+			LocalDateTime insertDate, CampBean campBean) {
+		this.reserveId = reserveId;
+		this.loginId = loginId;
+		this.campName = campName;
+		this.reserveDate = reserveDate;
+		this.insertDate = insertDate;
+		this.campBean = campBean;
 	}
 
 	//アクセッサ
@@ -48,12 +60,19 @@ public class ReservationBean implements Serializable {
 		this.reserveDate = reserveDate;
 	}
 
-	public LocalDate getInsertDate() {
+	public LocalDateTime getInsertDate() {
 		return insertDate;
 	}
 
-	public void setInsertDate(LocalDate insertDate) {
+	public void setInsertDate(LocalDateTime insertDate) {
 		this.insertDate = insertDate;
 	}
 
+	public CampBean getCampBean() {
+		return campBean;
+	}
+
+	public void setCampBean(CampBean campBean) {
+		this.campBean = campBean;
+	}
 }
