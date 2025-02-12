@@ -10,8 +10,8 @@ import model.entity.CampBean;
 public class CampDAO {
 	//キャンプ場で絞り込み
 	public CampBean getCampListByCampName(CampBean campBean) throws ClassNotFoundException, SQLException {
-		//SQL文（caharge修正必要）
-		String sql = "SELECT camp_name,location,tel,caharge,capacity FROM camp WHERE camp_name=?";
+		//SQL文
+		String sql = "SELECT camp_name,location,tel,charge,capacity FROM camp WHERE camp_name=?";
 		//データベースに接続
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);) {
@@ -23,7 +23,7 @@ public class CampDAO {
 				String campName = res.getString("camp_name");
 				String location = res.getString("location");
 				String tel = res.getString("tel");
-				int charge = res.getInt("caharge");
+				int charge = res.getInt("charge");
 				int capacity = res.getInt("capacity");
 				campBean = new CampBean(campName, location, tel, charge, capacity);
 			}
@@ -34,12 +34,12 @@ public class CampDAO {
 	//編集登録処理
 	public int updateCampList(CampBean campBean) throws ClassNotFoundException, SQLException {
 		int resultNum = 0;
-		//SQL文（caharge修正必要）
+		//SQL文
 		String sql = "UPDATE camp SET";
 		sql += " camp_name=?,";
 		sql += " location=?,";
 		sql += " tel=?,";
-		sql += " caharge=?,";
+		sql += " charge=?,";
 		sql += " capacity=?";
 		sql += " WHERE camp_name=?";
 		//データベースに接続
