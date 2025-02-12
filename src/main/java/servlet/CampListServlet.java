@@ -29,6 +29,7 @@ public class CampListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		//キャンプ場一覧の表示
+
 	}
 
 	/**
@@ -37,6 +38,10 @@ public class CampListServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		//検索の絞り込み処理
+		//エンコーディング方法の指定
+		request.setCharacterEncoding("UTF-8");
+		//リクエストパラメータの取得 getParameter
+		String location = request.getParameter("location");
 	}
 
 }
