@@ -35,26 +35,26 @@ public class CampListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		//キャンプ場一覧の表示 ＠近藤
-		
+
 		// Campリストを格納する変数
-				List<CampBean> CampList = null;
+		List<CampBean> CampList = null;
 
-				// CampDAOクラスのインスタンス生成
-				CampDAO dao = new CampDAO();
+		// CampDAOクラスのインスタンス生成
+		CampDAO dao = new CampDAO();
 
-				try {
-					// CampDAOクラスのgetCampListメソッド呼び出し、Campリスト取得
-					CampList = dao.getCampList();
-				} catch (ClassNotFoundException | SQLException e) {
-					e.printStackTrace();
-				}
-				System.out.println(CampList);
-				// リクエストスコープにCampリストをセット
-				request.setAttribute("CampList", CampList);
+		try {
+			// CampDAOクラスのgetCampListメソッド呼び出し、Campリスト取得
+			CampList = dao.getCampList();
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
 
-				// camp-list.jspのキャンプ場一覧画面へ転送
-				RequestDispatcher rd = request.getRequestDispatcher("camp-list.jsp");
-				rd.forward(request, response);
+		// リクエストスコープにCampリストをセット
+		request.setAttribute("CampList", CampList);
+
+		// camp-list.jspのキャンプ場一覧画面へ転送
+		RequestDispatcher rd = request.getRequestDispatcher("camp-list.jsp");
+		rd.forward(request, response);
 	}
 
 	/**
@@ -63,8 +63,5 @@ public class CampListServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// 検索の絞り込み処理 
-
-		
 	}
-
 }

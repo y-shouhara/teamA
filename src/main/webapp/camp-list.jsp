@@ -23,7 +23,9 @@ List<CampBean> CampList = (List) request.getAttribute("CampList");
 	<!-- 絞り込み条件 -->
 	<label>絞り込み条件</label>
 	<form action="CampList" method="post">
-		<label>所在地:</label> <select name="location">
+		<label>所在地:</label> 
+		<select name="location">
+			<option value="">選択してください</option>
 			<option value="北海道">北海道</option>
 			<option value="青森県">青森県</option>
 			<option value="岩手県">岩手県</option>
