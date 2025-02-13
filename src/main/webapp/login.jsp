@@ -27,5 +27,10 @@
 	<form action="RegisterUser" method="get">
 		<input type="submit" value="新規ユーザー作成">
 	</form>
+<!--	テスト用-->
+	<form action="Reservation" method="get">
+					<input type="submit" value="予約">
+					<input type="hidden" value="モラップキャンプ場" name="campName">
+				</form>
 </body>
 </html>
