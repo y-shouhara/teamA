@@ -1,6 +1,7 @@
 package model.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -51,15 +52,41 @@ public class ReservationDAO {
 
 	//個人予約のキャンセル
 
-	//選択したキャンプ場の予約状況を取得
-	public void name() {
+	//予約画面に表示するカレンダーの日付情報を取得
+	public void name(LocalDate targetDay) {
 
 	}
 
 	//キャンプ場名と日付で予約状況表示用データを取得
-	public List<ReservationBean> getAvailability(String campName, LocalDate targetDay) {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
+	public List<ReservationBean> getAvailability(String campName, LocalDate targetDay)
+			throws ClassNotFoundException, SQLException {
+		List<ReservationBean> reservationBeanList = new ArrayList<ReservationBean>();
+		//絞り込み期間の設定
+		LocalDate targetDayPlus = targetDay.plusDays(6);
+		//LocalDate⇒sql.Dateに変換
+		Date startDay = java.sql.Date.valueOf(targetDay);
+		Date endDay = java.sql.Date.valueOf(targetDayPlus);
+		//SQL文の取得
+		String sql = "SELECT camp_name,reserve_date FROM reserve";
+		sql += " WHERE camp_name=?";
+		sql += " AND reserve_date BETWEEN ? AND ?";
+		//データベースに接続
+		try (Connection con = ConnectionManager.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);) {
+			//プレースホルダに値を設定
+			pstmt.setString(1, campName);
+			pstmt.setDate(2, startDay);
+			pstmt.setDate(3, endDay);
+			//SQLの実行
+			ResultSet res = pstmt.executeQuery();
+			while (res.next()) {
+				ReservationBean reservationBean = new ReservationBean();
+				reservationBean.setCampName(res.getString("camp_name"));
+				reservationBean.setReserveDate(res.getDate("reserve_date").toLocalDate());
+				reservationBeanList.add(reservationBean);
+			}
+		}
+		return reservationBeanList;
 	}
 
 }

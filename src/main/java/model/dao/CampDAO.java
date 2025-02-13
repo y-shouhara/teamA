@@ -59,8 +59,6 @@ public class CampDAO {
 		}
 		return resultNum;
 	}
-<<<<<<< HEAD
-=======
 
 	//キャンプ場の新規登録をするメソッド
 	public int RegistCampList(CampBean campBean) throws ClassNotFoundException, SQLException {
@@ -84,40 +82,16 @@ public class CampDAO {
 		}
 		return resultNum;
 	}
->>>>>>> branch 'master' of https://github.com/y-shouhara/teamA.git
-
-	//キャンプ場の新規登録をするメソッド
-	public int RegistCampList(CampBean campBean) throws ClassNotFoundException, SQLException {
-		//SQL
-		String sql = "INSERT INTO camp (camp_name,location,tel,caharge,capacity )VALUES (?, ?, ?, ?, ?)";
-		int resultNum = 0;
-		//データベースに接続
-		try (Connection con = ConnectionManager.getConnection(); //スロー宣言の追加
-				PreparedStatement pstmt = con.prepareStatement(sql);) {
-			//プレースホルダに値を設定
-			pstmt.setString(1, campBean.getCampName());
-			pstmt.setString(2, campBean.getLocation());
-			pstmt.setString(3, campBean.getTel());
-			pstmt.setInt(4, campBean.getCharge());
-			pstmt.setInt(5, campBean.getCapacity());
-			pstmt.setString(6, campBean.getCampName());
-
-			//SQLの実行
-			resultNum = pstmt.executeUpdate();
-			System.out.println(campBean.getCampName());
-		}
-		return resultNum;
-	}
 
 	// キャンプ場全データ表示 ＠近藤
 	public List<CampBean> getCampList() throws ClassNotFoundException, SQLException {
-		
+
 		// リストの初期化
 		List<CampBean> CampList = new ArrayList<>();
-		
+
 		// SQL文
 		String sql = "SELECT camp_name, location, tel, charge, capacity FROM camp";
-		
+
 		// データベース接続
 		// PreparedStatementでSQL実行の準備
 		try (Connection con = ConnectionManager.getConnection();

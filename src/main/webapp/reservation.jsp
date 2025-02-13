@@ -1,5 +1,21 @@
+<%@page import="model.entity.ReservationBean"%>
+<%@page import="java.util.List"%>
+<%@page import="java.time.LocalDate"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+ 	List<ReservationBean> reservationBeanList = (List<ReservationBean>)request.getAttribute("reservationBeanList");
+	LocalDate targetDay = (LocalDate) request.getAttribute("targetDay");
+	String campName = (String)request.getAttribute("campName");
+	List<String> yearList = (List<String>)request.getAttribute("yearList");
+	List<String> monthList = (List<String>)request.getAttribute("monthList");
+	List<String> dateList = (List<String>)request.getAttribute("dateList");
+	List<String> dayOfWeekList = (List<String>)request.getAttribute("dayOfWeekList");
+	int yearFirstColSpan = (int)request.getAttribute("yearFirstColSpan");
+	int yearSecondColSpan = (int)request.getAttribute("yearSecondColSpan");
+	int monthFirstColSpan = (int)request.getAttribute("monthFirstColSpan");
+	int monthSecondColSpan = (int)request.getAttribute("monthSecondColSpan");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,32 +28,34 @@
 	<jsp:include page="header.jsp" />
 	
 	<h1>予約画面</h1>
-	<h2>モラップキャンプ場</h2>
+	<h2><%= campName %></h2>
 	<div class="dateChangeBox">
 		<!--	前の週を表示-->
-		<form action="Reservation" method="post">
+		<form action="Reservation" method="get">
 			<input type="submit" value="前の週へ">
 			<input type="hidden" name="dateChange" value="previous">
+			<input type="hidden" name="targetDay" value=<%= targetDay %>>
 		</form>
 		<!--	次の週を表示-->
-		<form action="Reservation" method="post">
+		<form action="Reservation" method="get">
 			<input type="submit" value="次の週へ">
 			<input type="hidden" name="dateChange" value="next">
+			<input type="hidden" name="targetDay" value=<%= targetDay %>>
 		</form>
 	</div>
 	<label>【予約状況】　◎：予約可　×：予約不可</label>
 	<table border="1" class="table">
 		<thead>
 			<tr>
-				<th class="table__year" colspan="3">2025年</th>
-				<% if( 4 > 0) { %>
-					<th class="table__year" colspan="4">2026年</th>
+				<th class="table__year" colspan=<%= yearFirstColSpan %>><%= yearList.get(0) %>年</th>
+				<% if( yearSecondColSpan > 0) { %>
+					<th class="table__year" colspan=<%= yearSecondColSpan %>><%= yearList.get(1) %>年</th>
 				<% } %>
 			</tr>
 			<tr>
-				<th class="table__Month" colspan="3">12月</th>
-				<% if( 4 > 0) { %>
-					<th class="table__Month" colspan="4">1月</th>
+				<th class="table__Month" colspan=<%= monthFirstColSpan %>><%= monthList.get(0) %>月</th>
+				<% if( monthSecondColSpan > 0) { %>
+					<th class="table__Month" colspan=<%= monthSecondColSpan %>><%= monthList.get(1) %>月</th>
 				<% } %>
 			</tr>
 			<tr>
