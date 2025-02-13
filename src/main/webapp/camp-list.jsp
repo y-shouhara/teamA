@@ -82,17 +82,15 @@ List<CampBean> CampList = (List) request.getAttribute("CampList");
 			<th>料金</th>
 			<th>最大人数</th>
 		</tr>
+		<%
+		for (CampBean display : CampList) {
+		%>
 		<tr>
-			<%
-			for (CampBean tweet : CampList) {
-			%>
-		
-		<tr>
-			<td><%=tweet.getCampName()%></td>
-			<td><%=tweet.getLocation()%></td>
-			<td><%=tweet.getTel()%></td>
-			<td><%=tweet.getCharge()%></td>
-			<td><%=tweet.getCapacity()%></td>
+			<td><%=display.getCampName()%></td>
+			<td><%=display.getLocation()%></td>
+			<td><%=display.getTel()%></td>
+			<td><%=display.getCharge()%></td>
+			<td><%=display.getCapacity()%></td>
 			<td>
 				<form action="Reservation" method="get">
 					<input type="submit" value="予約">

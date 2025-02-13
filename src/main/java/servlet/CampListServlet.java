@@ -39,7 +39,7 @@ public class CampListServlet extends HttpServlet {
 		// Campリストを格納する変数
 				List<CampBean> CampList = null;
 
-				// TweetDAOクラスのインスタンス生成
+				// CampDAOクラスのインスタンス生成
 				CampDAO dao = new CampDAO();
 
 				try {
@@ -48,8 +48,8 @@ public class CampListServlet extends HttpServlet {
 				} catch (ClassNotFoundException | SQLException e) {
 					e.printStackTrace();
 				}
-
-				// リクエストスコープにtweetリストをセット
+				System.out.println(CampList);
+				// リクエストスコープにCampリストをセット
 				request.setAttribute("CampList", CampList);
 
 				// camp-list.jspのキャンプ場一覧画面へ転送
