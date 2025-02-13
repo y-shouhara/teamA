@@ -90,8 +90,8 @@ public class CampDAO {
 		List<CampBean> CampList = new ArrayList<>();
 
 		// SQL文
-		String sql = "SELECT camp_name, location, tel, charge, capacity FROM camp";
-
+		String sql = "SELECT camp_name, location, tel, charge, capacity FROM camp;";
+		
 		// データベース接続
 		// PreparedStatementでSQL実行の準備
 		try (Connection con = ConnectionManager.getConnection();
@@ -107,7 +107,7 @@ public class CampDAO {
 				String tel = res.getString("tel"); // campテーブルtelカラムの値
 				int charge = res.getInt("charge"); // campテーブルchargeカラムの値
 				int capacity = res.getInt("capacity"); // campテーブルcapacityカラムの値
-
+				
 				// DBから取得した値を初期値として、CampListのインスタンス生成
 				CampBean todo = new CampBean(campname, location, tel, charge, capacity);
 
