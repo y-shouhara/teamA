@@ -1,5 +1,10 @@
+<%@page import="model.entity.CampBean"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+<%
+List<CampBean> CampList = (List) request.getAttribute("CampList");
+%>
 <!--<%-->
 <!--	int managerId = Integer.parseInt((String)session.getAttribute("managerId")) ;-->
 <!--%>-->
@@ -12,14 +17,13 @@
 <body>
 	<!--	ヘッダー部分の読み込み-->
 	<jsp:include page="header.jsp" />
-	
+
 	<h1>キャンプ場一覧</h1>
-	
+
 	<!-- 絞り込み条件 -->
 	<label>絞り込み条件</label>
 	<form action="CampList" method="post">
-		<label>所在地:</label>
-		<select name="location">
+		<label>所在地:</label> <select name="location">
 			<option value="北海道">北海道</option>
 			<option value="青森県">青森県</option>
 			<option value="岩手県">岩手県</option>
@@ -67,8 +71,7 @@
 			<option value="宮崎県">宮崎県</option>
 			<option value="鹿児島県">鹿児島県</option>
 			<option value="沖縄県">沖縄県</option>
-		</select>
-		<input type="submit" value="検索">
+		</select> <input type="submit" value="検索">
 	</form>
 	<!-- データ一覧表示 -->
 	<table border="1">
@@ -80,33 +83,39 @@
 			<th>最大人数</th>
 		</tr>
 		<tr>
-			<td>モラップキャンプ場</td>
-			<td>北海道</td>
-			<td>0123-25-2201</td>
-			<td>1300</td>
-			<td>6</td>
-			 <td>
+			<%
+			for (CampBean tweet : CampList) {
+			%>
+		
+		<tr>
+			<td><%=tweet.getCampName()%></td>
+			<td><%=tweet.getLocation()%></td>
+			<td><%=tweet.getTel()%></td>
+			<td><%=tweet.getCharge()%></td>
+			<td><%=tweet.getCapacity()%></td>
+			<td>
 				<form action="Reservation" method="get">
-				<input type="submit" value="予約">
+					<input type="submit" value="予約">
 				</form>
 			</td>
-				<td>
-					<form action="RegistrCamp" method="post">
+			<td>
+				<form action="RegistrCamp" method="post">
 					<input type="submit" value="登録">
-					</form>
-				</td>
-				<td>
-					<form action="UpdateCamp" method="get">
-					<input type="submit" value="編集">
-					<input type="hidden" value="">
-					</form>
-				</td>
-				<td>
-					<form action="DeleteCamp" method="get">
+				</form>
+			</td>
+			<td>
+				<form action="UpdateCamp" method="get">
+					<input type="submit" value="編集"> <input type="hidden"
+						value="">
+				</form>
+			</td>
+			<td>
+				<form action="DeleteCamp" method="get">
 					<input type="submit" value="削除">
-					</form>
-				</td> 
+				</form>
+			</td>
 		</tr>
+		<%}%>
 	</table>
 </body>
 </html>
