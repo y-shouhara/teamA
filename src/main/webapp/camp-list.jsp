@@ -99,7 +99,7 @@ List<CampBean> CampList = (List) request.getAttribute("CampList");
 				</form>
 			</td>
 			<td>
-				<form action="RegistrCamp" method="post">
+				<form action="RegisterCamp" method="post">
 					<input type="submit" value="登録">
 				</form>
 			</td>
