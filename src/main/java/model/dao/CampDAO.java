@@ -74,7 +74,6 @@ public class CampDAO {
 			pstmt.setString(3, campBean.getTel());
 			pstmt.setInt(4, campBean.getCharge());
 			pstmt.setInt(5, campBean.getCapacity());
-			pstmt.setString(6, campBean.getCampName());
 
 			//SQLの実行
 			resultNum = pstmt.executeUpdate();
