@@ -8,7 +8,7 @@
 </head>
 <body>
 	<h1>キャンプ場新規登録</h1>
-	<form action="registr" method="post">
+	<form action="RegisterCamp" method="post">
 		<label>名称</label>
 		<input type="text" name="campName"><br>
 		<label>所在地</label>
