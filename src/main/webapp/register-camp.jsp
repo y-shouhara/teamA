@@ -10,7 +10,7 @@
 	<h1>キャンプ場新規登録</h1>
 	<form action="RegisterCamp" method="post">
 		<label>名称</label>
-		<input type="text" name="campName"><br>
+		<input type="text" name="campName" required><br>
 		<label>所在地</label>
 		<select name="location">
 			<option value="">選択してください</option>
@@ -63,11 +63,11 @@
 			<option value="沖縄県">沖縄県</option>
 		</select><br>
 		<label>電話番号</label>
-		<input type="tel" name="tel"><br>
+		<input type="tel" name="tel" required><br>
 		<label>料金</label>
-		<input type="number" name="charge"><br>
+		<input type="number" name="charge" required><br>
 		<label>最大人数</label>
-		<input type="number" name="capacity"><br>
+		<input type="number" name="capacity" required><br>
 		<br>
 		<input type="submit" value="登録">
 	</form>
