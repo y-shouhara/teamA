@@ -63,5 +63,6 @@ public class CampListServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// 検索の絞り込み処理 
+		String selectedItem = request.getParameter("item");
 	}
 }
