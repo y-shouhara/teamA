@@ -89,7 +89,7 @@ public class CampDAO {
 		List<CampBean> CampList = new ArrayList<>();
 		
 		// SQL文
-		String sql = "SELECT camp_name, location, tel, charge, capacity FROM camp;";
+		String sql = "SELECT * FROM camp";
 		
 		// データベース接続
 		// PreparedStatementでSQL実行の準備

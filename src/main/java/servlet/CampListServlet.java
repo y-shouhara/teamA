@@ -62,7 +62,20 @@ public class CampListServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// 検索の絞り込み処理 
-		String selectedItem = request.getParameter("item");
+		// 検索の絞り込み処理 ＠近藤
+		//エンコーディング方法の指定
+		request.setCharacterEncoding("UTF-8");
+		//リクエストパラメータの取得 getParameter
+		String CampList = request.getParameter("location");
+		//メソッドを使うためにインスタンス生成
+		CampDAO dao = new CampDAO();
+		//メソッドの呼び出し
+		try {
+			List<CampBean> getCampList = dao.getCampList();
+			
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
 	}
 }

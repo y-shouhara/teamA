@@ -23,8 +23,7 @@ List<CampBean> CampList = (List) request.getAttribute("CampList");
 	<!-- 絞り込み条件 -->
 	<label>絞り込み条件</label>
 	<form action="CampList" method="post">
-		<label>所在地:</label> 
-		<select name="location">
+		<label>所在地:</label> <select name="location">
 			<option value="">選択してください</option>
 			<option value="北海道">北海道</option>
 			<option value="青森県">青森県</option>
@@ -84,20 +83,15 @@ List<CampBean> CampList = (List) request.getAttribute("CampList");
 			<th>料金</th>
 			<th>最大人数</th>
 		</tr>
-		<%
-		for (CampBean display : CampList) {
-		%>
+		<%for (CampBean display : CampList) {%>
 		<tr>
 			<td><%=display.getCampName()%></td>
 			<td><%=display.getLocation()%></td>
 			<td><%=display.getTel()%></td>
 			<td><%=display.getCharge()%></td>
 			<td><%=display.getCapacity()%></td>
-			<td>
-				<form action="Reservation" method="get">
-					<input type="submit" value="予約">
-				</form>
-			</td>
+
+			<%if (isLoggedIn) {%>
 			<td>
 				<form action="RegisterCamp" method="post">
 					<input type="submit" value="登録">
@@ -114,6 +108,13 @@ List<CampBean> CampList = (List) request.getAttribute("CampList");
 					<input type="submit" value="削除">
 				</form>
 			</td>
+			<%} else {%>
+			<td>
+				<form action="Reservation" method="get">
+					<input type="submit" value="予約">
+				</form>
+			</td>
+			<%}%>
 		</tr>
 		<%}%>
 	</table>
