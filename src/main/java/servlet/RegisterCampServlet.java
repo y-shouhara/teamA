@@ -61,6 +61,7 @@ public class RegisterCampServlet extends HttpServlet {
 			//System.out.println("成功");
 			RequestDispatcher rd = request.getRequestDispatcher("camp-list.jsp");
 			rd.forward(request, response);
+			
 		}catch (ClassNotFoundException | SQLException e) {
 			//System.out.println("失敗");
 			// TODO 自動生成された catch ブロック
