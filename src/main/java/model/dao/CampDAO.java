@@ -33,6 +33,35 @@ public class CampDAO {
 		return campBean;
 	}
 
+	//都道府県で絞り込み
+	public List<CampBean> getCampListByLocation(String location) throws ClassNotFoundException, SQLException {
+		List<CampBean> CampList = new ArrayList<>();
+		//SQL文
+		String sql = "SELECT camp_name,location,tel,charge,capacity FROM camp WHERE location=?";
+		//データベースに接続
+		try (Connection con = ConnectionManager.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);) {
+			//プレースホルダに値を設定
+			pstmt.setString(1, location);
+			//SQLの実行
+			ResultSet res = pstmt.executeQuery();
+			while (res.next()) {
+				String campname = res.getString("camp_name"); // campテーブルcamp_nameカラムの値
+				location = res.getString("location"); // campテーブルlocationカラムの値
+				String tel = res.getString("tel"); // campテーブルtelカラムの値
+				int charge = res.getInt("charge"); // campテーブルchargeカラムの値
+				int capacity = res.getInt("capacity"); // campテーブルcapacityカラムの値
+				System.out.println(campname);
+				// DBから取得した値を初期値として、CampListのインスタンス生成
+				CampBean todo = new CampBean(campname, location, tel, charge, capacity);
+
+				// CampListにインスタンスを追加
+				CampList.add(todo);
+			}
+		}
+		return CampList;
+	}
+
 	//編集登録処理
 	public int updateCampList(CampBean campBean) throws ClassNotFoundException, SQLException {
 		int resultNum = 0;
@@ -87,10 +116,10 @@ public class CampDAO {
 
 		// リストの初期化
 		List<CampBean> CampList = new ArrayList<>();
-		
+
 		// SQL文
 		String sql = "SELECT * FROM camp";
-		
+
 		// データベース接続
 		// PreparedStatementでSQL実行の準備
 		try (Connection con = ConnectionManager.getConnection();
@@ -106,7 +135,7 @@ public class CampDAO {
 				String tel = res.getString("tel"); // campテーブルtelカラムの値
 				int charge = res.getInt("charge"); // campテーブルchargeカラムの値
 				int capacity = res.getInt("capacity"); // campテーブルcapacityカラムの値
-				
+				System.out.println(campname);
 				// DBから取得した値を初期値として、CampListのインスタンス生成
 				CampBean todo = new CampBean(campname, location, tel, charge, capacity);
 

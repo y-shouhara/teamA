@@ -34,6 +34,7 @@ public class CampListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		System.out.println("get");
 		//キャンプ場一覧の表示 ＠近藤
 
 		// Campリストを格納する変数
@@ -63,19 +64,43 @@ public class CampListServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// 検索の絞り込み処理 ＠近藤
-		//エンコーディング方法の指定
+		//文字化け対策
 		request.setCharacterEncoding("UTF-8");
-		//リクエストパラメータの取得 getParameter
-		String CampList = request.getParameter("location");
-		//メソッドを使うためにインスタンス生成
+		System.out.println("post");
+		String location = request.getParameter("location");
+
+		List<CampBean> CampList = null;
+
+		// CampDAOクラスのインスタンス生成
 		CampDAO dao = new CampDAO();
-		//メソッドの呼び出し
+
 		try {
-			List<CampBean> getCampList = dao.getCampList();
-			
+			// CampDAOクラスのgetCampListメソッド呼び出し、Campリスト取得
+			CampList = dao.getCampListByLocation(location);
 		} catch (ClassNotFoundException | SQLException e) {
-			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}
+
+		// リクエストスコープにCampリストをセット
+		request.setAttribute("CampList", CampList);
+
+		// camp-list.jspのキャンプ場一覧画面へ転送
+		RequestDispatcher rd = request.getRequestDispatcher("camp-list.jsp");
+		rd.forward(request, response);
 	}
+	//		
+	//		//エンコーディング方法の指定
+	//		response.setContentType("text/html; charset=UTF-8");
+	//		//リクエストパラメータの取得 getParameter
+	//		String CampList = request.getParameter("location");
+	//		//メソッドを使うためにインスタンス生成
+	//		CampDAO dao = new CampDAO();
+	//		//メソッドの呼び出し
+	//		try {
+	//			List<CampBean> getCampList = dao.getCampList();
+	//			
+	//		} catch (ClassNotFoundException | SQLException e) {
+	//			// TODO 自動生成された catch ブロック
+	//			e.printStackTrace();
+	//		}
 }

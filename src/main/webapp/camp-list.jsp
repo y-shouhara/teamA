@@ -4,6 +4,8 @@
 	pageEncoding="UTF-8"%>
 <%
 List<CampBean> CampList = (List) request.getAttribute("CampList");
+int managerId = (int) session.getAttribute("managerId");
+//int managerId = (int) session.getAttribute("managerId");
 %>
 <!--<%-->
 <!--	int managerId = Integer.parseInt((String)session.getAttribute("managerId")) ;-->
@@ -91,7 +93,7 @@ List<CampBean> CampList = (List) request.getAttribute("CampList");
 			<td><%=display.getCharge()%></td>
 			<td><%=display.getCapacity()%></td>
 
-			<%if (isLoggedIn) {%>
+			<%if (managerId == 1) {%>
 			<td>
 				<form action="RegisterCamp" method="post">
 					<input type="submit" value="登録">

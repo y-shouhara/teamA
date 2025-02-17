@@ -62,7 +62,7 @@ public class AuthServlet extends HttpServlet {
 		//リクエストパラメータの取得
 		String userName = request.getParameter("userName");
 		String pass = request.getParameter("pass");
-		String url = "camp-list.jsp";
+		String url = "/CampList";
 		//LoginDAOのインスタンス生成
 		LoginDAO loginDAO = new LoginDAO();
 		try {
