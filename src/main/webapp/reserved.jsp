@@ -8,7 +8,7 @@
 </head>
 <body>
 	<h1>予約が完了しました</h1>
-	<form action="" method="">
+	<form action="Confirmation" method="get">
 		<input type="submit" value="予約確認画面へ">
 	</form>
 </body>

@@ -151,6 +151,8 @@ public class ReservationServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		//➀クリックした日付とキャンプ場名称取得?(request.setAttribute?)
+		//➁予約完了画面への画面遷移?
 	}
 
 }
