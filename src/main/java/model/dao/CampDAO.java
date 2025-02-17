@@ -33,7 +33,7 @@ public class CampDAO {
 		return campBean;
 	}
 
-	//都道府県で絞り込み
+	//都道府県で絞り込み ＠近藤
 	public List<CampBean> getCampListByLocation(String location) throws ClassNotFoundException, SQLException {
 		List<CampBean> CampList = new ArrayList<>();
 		//SQL文
