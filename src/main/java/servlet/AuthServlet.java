@@ -72,7 +72,8 @@ public class AuthServlet extends HttpServlet {
 			if (loginBean == null) {
 				request.setAttribute("errorMsg", "入力されたユーザー名は存在しません。");
 				//画面遷移設定
-				url = "login.jsp";
+				RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+				rd.forward(request, response);
 			} else {
 				//リクエストパラメータのパスワードをソルト＋ハッシュに変換
 				String salt = loginBean.getSalt();
@@ -87,12 +88,13 @@ public class AuthServlet extends HttpServlet {
 					//エラーメッセージの設定
 					request.setAttribute("errorMsg", "パスワードが違います。");
 					//画面遷移設定
-					url = "login.jsp";
+					RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+					rd.forward(request, response);
 				}
 			}
 			//画面遷移設定
-			RequestDispatcher rd = request.getRequestDispatcher(url);
-			rd.forward(request, response);
+			response.sendRedirect(request.getContextPath() + "/CampList");
+
 		} catch (ClassNotFoundException | SQLException | NoSuchAlgorithmException e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();

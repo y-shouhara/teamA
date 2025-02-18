@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-	String lginId = (String) session.getAttribute("loginId");
+	String userName = (String) session.getAttribute("userName");
 %>
 <!DOCTYPE html>
 <html>
@@ -11,7 +11,7 @@
 </head>
 <header class="header">
 	<!-- ログイン中かで表示内容を分岐 -->
-	<% if(lginId != null) { %>
+	<% if(userName == null) { %>
 		<div class="header__gest">
 			<label class="header__userLabel">ユーザー名：ゲスト さん</label>
 			<!-- ログイン画面へ遷移 -->
@@ -21,7 +21,7 @@
 		</div>
 	<% }else{ %>
 		<div class="header__gest">
-			<label class="header__userLabel">ユーザー名：<%= lginId %> さん</label>
+			<label class="header__userLabel">ユーザー名：<%= userName %> さん</label>
 			<!-- ログアウト画面へ遷移 -->
 			<form action="" method="get">
 				<input type="submit" value="ログアウト">
