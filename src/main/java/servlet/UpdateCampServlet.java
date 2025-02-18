@@ -37,8 +37,7 @@ public class UpdateCampServlet extends HttpServlet {
 		//文字化け対策
 		request.setCharacterEncoding("UTF-8");
 		//リクエストパラメータの取得
-		String campName = "大島ビーチファミリー";
-		//		String campName = request.getParameter("campName");
+		String campName = request.getParameter("campName");
 		CampBean campBean = new CampBean();
 		campBean.setCampName(campName);
 		//CampDAOのインスタンス生成
@@ -78,8 +77,7 @@ public class UpdateCampServlet extends HttpServlet {
 			//UPDATEの実行
 			int resultNum = campDAO.updateCampList(campBean);
 			//画面遷移先の設定
-			RequestDispatcher rd = request.getRequestDispatcher("camp-list.jsp");
-			rd.forward(request, response);
+			response.sendRedirect(request.getContextPath() + "/CampList");
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();

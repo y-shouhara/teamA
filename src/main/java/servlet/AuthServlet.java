@@ -48,6 +48,10 @@ public class AuthServlet extends HttpServlet {
 		if (session.getAttribute("userName") == null) {
 			request.setAttribute("nextServlet", transition);
 			transition = "login.jsp";
+		} else {
+			if (request.getParameter("campName") != null) {
+				session.setAttribute("campName", request.getParameter("campName"));
+			}
 		}
 		//遷移先の設定
 		RequestDispatcher rd = request.getRequestDispatcher(transition);
@@ -97,6 +101,7 @@ public class AuthServlet extends HttpServlet {
 					HttpSession session = request.getSession();
 					session.setAttribute("userName", userName);
 					session.setAttribute("managerId", loginBean.getManagerId());
+					session.setAttribute("campName", campName);
 				} else {
 					//エラーメッセージの設定
 					request.setAttribute("errorMsg", "パスワードが違います。");

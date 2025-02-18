@@ -100,19 +100,20 @@ List<CampBean> CampList = (List) request.getAttribute("CampList");
 
 			<%if (managerId == 1) {%>
 			<td>
-				<form action="RegisterCamp" method="post">
+				<form action="RegisterCamp" method="get">
 					<input type="submit" value="登録">
 				</form>
 			</td>
 			<td>
 				<form action="UpdateCamp" method="get">
-					<input type="submit" value="編集"> <input type="hidden"
-						value="">
+					<input type="submit" value="編集">
+					<input type="hidden" name="campName" value=<%=display.getCampName()%> >
 				</form>
 			</td>
 			<td>
 				<form action="DeleteCamp" method="get">
 					<input type="submit" value="削除">
+					<input type="hidden" name="campName" value=<%=display.getCampName()%> >
 				</form>
 			</td>
 			<%} else {%>

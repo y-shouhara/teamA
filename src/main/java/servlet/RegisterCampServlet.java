@@ -19,19 +19,20 @@ import model.entity.CampBean;
 @WebServlet("/RegisterCamp")
 public class RegisterCampServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public RegisterCampServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public RegisterCampServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		//RequestDispatcher→サーブレットからJSPを表示するためのインターフェイス
 		RequestDispatcher rd = request.getRequestDispatcher("register-camp.jsp");
@@ -41,7 +42,8 @@ public class RegisterCampServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		//リクエストパラメータの取得
 		String campName = request.getParameter("campName");
@@ -50,8 +52,7 @@ public class RegisterCampServlet extends HttpServlet {
 		int charge = Integer.parseInt(request.getParameter("charge"));
 		int capacity = Integer.parseInt(request.getParameter("capacity"));
 		CampBean campBean = new CampBean(campName, location, tel, charge, capacity);
-		System.out.println(campBean);
-		
+
 		//CampDAOのインスタンス生成(DAOを使ってデータベースに登録)
 		CampDAO campDAO = new CampDAO();
 		try {
@@ -59,16 +60,14 @@ public class RegisterCampServlet extends HttpServlet {
 			int resultNum = campDAO.RegistCampList(campBean);
 			//画面遷移先の設定
 			System.out.println("成功");
-			RequestDispatcher rd = request.getRequestDispatcher("camp-list.jsp");
-			rd.forward(request, response);
-		}catch (ClassNotFoundException | SQLException e) {
+			response.sendRedirect(request.getContextPath() + "/CampList");
+		} catch (ClassNotFoundException | SQLException e) {
 			System.out.println("失敗");
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 			response.sendRedirect("error.jsp");
 		}
 
-		
 	}
 
 }
