@@ -50,7 +50,7 @@ public class RegisterCampServlet extends HttpServlet {
 		int charge = Integer.parseInt(request.getParameter("charge"));
 		int capacity = Integer.parseInt(request.getParameter("capacity"));
 		CampBean campBean = new CampBean(campName, location, tel, charge, capacity);
-		//System.out.println(campBean);
+		System.out.println(campBean);
 		
 		//CampDAOのインスタンス生成(DAOを使ってデータベースに登録)
 		CampDAO campDAO = new CampDAO();
@@ -58,7 +58,7 @@ public class RegisterCampServlet extends HttpServlet {
 			//登録処理をするメソッドを呼び出す
 			int resultNum = campDAO.RegistCampList(campBean);
 			//画面遷移先の設定
-			//System.out.println("成功");
+			System.out.println("成功");
 			RequestDispatcher rd = request.getRequestDispatcher("camp-list.jsp");
 			rd.forward(request, response);
 		}catch (ClassNotFoundException | SQLException e) {
