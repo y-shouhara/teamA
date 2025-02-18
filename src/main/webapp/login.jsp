@@ -2,6 +2,16 @@
     pageEncoding="UTF-8"%>
 <%
 	String errorMsg = (String) request.getAttribute("errorMsg");
+
+	String nextServlet = "CampList";
+	if(request.getAttribute("nextServlet") != null){
+		nextServlet= (String) request.getAttribute("nextServlet");
+	}
+	
+	String campName = "";
+	if(request.getAttribute("campName") != null){
+		campName= (String) request.getAttribute("campName");
+	}
 %>
 <!DOCTYPE html>
 <html>
@@ -20,6 +30,8 @@
 		<label>パスワード：</label>
 		<input type="password" name="pass"><br>
 		<input type="submit" value="ログイン">
+		<input type="hidden" name="nextServlet" value=<%= nextServlet %>> 
+		<input type="hidden" name="campName" value=<%= campName %>> 
 	</form>
 	<form action="CampList" method="get">
 		<input type="submit" value="一覧表示へ戻る">
@@ -27,10 +39,5 @@
 	<form action="RegisterUser" method="get">
 		<input type="submit" value="新規ユーザー作成">
 	</form>
-<!--	テスト用-->
-	<form action="Reservation" method="get">
-					<input type="submit" value="予約">
-					<input type="hidden" value="モラップキャンプ場" name="campName">
-				</form>
 </body>
 </html>

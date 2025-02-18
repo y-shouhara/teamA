@@ -23,13 +23,13 @@
 		<div class="header__gest">
 			<label class="header__userLabel">ユーザー名：<%= userName %> さん</label>
 			<!-- ログアウト画面へ遷移 -->
-			<form action="" method="get">
+			<form action="Logout" method="get">
 				<input type="submit" value="ログアウト">
 			</form>
 		</div>
 	<% } %>
 	<!-- 予約確認画面へ遷移 -->
-	<form action="Confirmation" method="post">
+	<form action="Auth" method="get">
 		<input type="submit" value="予約確認">
 		<input type="hidden" name="transition" value="Confirmation"> 
 	</form>

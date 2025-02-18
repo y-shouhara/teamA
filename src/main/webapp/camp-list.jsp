@@ -4,9 +4,14 @@
 	pageEncoding="UTF-8"%>
 <%
 List<CampBean> CampList = (List) request.getAttribute("CampList");
-int managerId = (int) session.getAttribute("managerId");
-//int managerId = (int) session.getAttribute("managerId");
 %>
+<% 
+	int  managerId = 0;
+	if(session.getAttribute("managerId") != null){ 
+		managerId = (int) session.getAttribute("managerId");
+	}
+%>
+
 <!--<%-->
 <!--	int managerId = Integer.parseInt((String)session.getAttribute("managerId")) ;-->
 <!--%>-->
@@ -112,8 +117,10 @@ int managerId = (int) session.getAttribute("managerId");
 			</td>
 			<%} else {%>
 			<td>
-				<form action="Reservation" method="get">
+				<form action="Auth" method="get">
 					<input type="submit" value="予約">
+					<input type="hidden" name="transition" value="Reservation" >
+					<input type="hidden" name="campName" value=<%=display.getCampName()%>>
 				</form>
 			</td>
 			<%}%>

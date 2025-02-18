@@ -40,11 +40,14 @@ public class AuthServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		//リクエストパラメータの取得
 		String transition = request.getParameter("transition");
+		if (request.getParameter("campName") != null) {
+			request.setAttribute("campName", request.getParameter("campName"));
+		}
 		//ログインされているか確認（セッションの有無）
 		HttpSession session = request.getSession(false);
-		System.out.println(session.toString());
-		if (session == null) {
-			transition = "/Login";
+		if (session.getAttribute("userName") == null) {
+			request.setAttribute("nextServlet", transition);
+			transition = "login.jsp";
 		}
 		//遷移先の設定
 		RequestDispatcher rd = request.getRequestDispatcher(transition);
@@ -62,7 +65,17 @@ public class AuthServlet extends HttpServlet {
 		//リクエストパラメータの取得
 		String userName = request.getParameter("userName");
 		String pass = request.getParameter("pass");
-		String url = "/CampList";
+		String campName = "";
+		String nextServlet = "";
+		if (request.getParameter("campName") != null) {
+			campName = request.getParameter("campName");
+			request.setAttribute("campName", campName);
+		}
+		if (request.getParameter("nextServlet") != null) {
+			nextServlet = request.getParameter("nextServlet");
+			request.setAttribute("nextServlet", nextServlet);
+		}
+
 		//LoginDAOのインスタンス生成
 		LoginDAO loginDAO = new LoginDAO();
 		try {
@@ -93,8 +106,13 @@ public class AuthServlet extends HttpServlet {
 				}
 			}
 			//画面遷移設定
-			response.sendRedirect(request.getContextPath() + "/CampList");
-
+			//キャンプ場予約画面（campName)
+			//個人予約状況（なし）
+			if ("".equals(nextServlet)) {
+				response.sendRedirect(request.getContextPath() + "/CampList");
+			} else {
+				response.sendRedirect(request.getContextPath() + "/" + nextServlet);
+			}
 		} catch (ClassNotFoundException | SQLException | NoSuchAlgorithmException e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
