@@ -1,6 +1,8 @@
 package servlet;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -151,8 +153,13 @@ public class ReservationServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		//➀クリックした日付とキャンプ場名称取得?(request.setAttribute?)
-		//➁予約完了画面への画面遷移?
-	}
+		//データベースへ予約情報を登録 ＠近藤
+		// hiddenデータを取得
+		String campName = request.getParameter("campName");
+		String reserveDate = request.getParameter("reserveDate");
 
+		// データベースへの接続とデータ登録
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+	}
 }
