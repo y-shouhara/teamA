@@ -145,29 +145,8 @@ public class CampDAO {
 		}
 		return CampList;
 	}
-	/**
-	 * campから、該当camp_nameのレコードを削除する
-	 * @return 削除件数
-	 * @throws SQLException 
-	 * @throws ClassNotFoundException 
-	 */
-	public int deleteCampByCampName(String campName) throws ClassNotFoundException, SQLException {
-		//戻り値用の変数定義
-		int deleteCount;
-		//⓵sql文の準備 今回はWHERE句に使用するので、プレースホルダを使用
-		String sql = "DELETE FROM camp WHERE camp_name= ?";
-		//⓶DBとの接続およびsqlの実行準備
-		try (Connection con = ConnectionManager.getConnection();
-				PreparedStatement pstmt = con.prepareStatement(sql)) {
-			//⓷プレースホルダに値をセット
-			pstmt.setString(1, campName);
-			//⓸sqlの実行
-			deleteCount = pstmt.executeUpdate();
-		}
-		return deleteCount;
-	}
 	
-	/**
+/**
 	 * campから、該当camp_nameのレコードを削除する
 	 * @return 削除件数
 	 * @throws SQLException 
