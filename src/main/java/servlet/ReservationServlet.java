@@ -2,6 +2,7 @@ package servlet;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.DayOfWeek;
@@ -153,13 +154,58 @@ public class ReservationServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		//データベースへ予約情報を登録 ＠近藤
+		// データベースへ予約情報を登録 ＠近藤
 		// hiddenデータを取得
 		String campName = request.getParameter("campName");
 		String reserveDate = request.getParameter("reserveDate");
-
+		System.out.println(campName);
+		System.out.println(reserveDate);
 		// データベースへの接続とデータ登録
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
+
+		try {
+			// データベースへの接続を確立
+			String url = "jdbc:mysql://localhost:3306/your_database";
+			String user = "root";
+			String Password = "root";
+
+			connection = DriverManager.getConnection(url, user, Password);
+
+			// データ挿入のためのSQLクエリを作成
+			String sql = "INSERT INTO reserve (camp_name, reserve_date) VALUES (?, ?)";
+
+			// ステートメントの準備
+			preparedStatement = connection.prepareStatement(sql);
+
+			// パラメータを設定
+			preparedStatement.setString(1, campName); // キャンプ名をセット
+			preparedStatement.setString(2, reserveDate); // 予約日をセット
+
+			// クエリを実行
+			int rowsAffected = preparedStatement.executeUpdate();
+
+			// 結果の処理
+			if (rowsAffected > 0) {
+				response.getWriter().write("予約が成功しました！"); // 成功メッセージ
+			} else {
+				response.getWriter().write("予約に失敗しました。"); // 失敗メッセージ
+			}
+		} catch (SQLException e) {
+			e.printStackTrace(); // エラー情報の出力
+			response.getWriter().write("エラーが発生しました。"); // エラーメッセージ
+		} finally {
+			// リソースのクリーンアップ
+			try {
+				if (preparedStatement != null) {
+					preparedStatement.close(); // ステートメントを閉じる
+				}
+				if (connection != null) {
+					connection.close(); // 接続を閉じる
+				}
+			} catch (SQLException e) {
+				e.printStackTrace(); // エラー情報の出力
+			}
+		}
 	}
 }
