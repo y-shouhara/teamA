@@ -20,6 +20,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import model.dao.ReservationDAO;
 import model.entity.ReservationBean;
@@ -48,7 +49,9 @@ public class ReservationServlet extends HttpServlet {
 		//文字化け対策
 		request.setCharacterEncoding("UTF-8");
 		//リクエストパラメータの取得
-		String campName = request.getParameter("campName");
+
+		HttpSession session = request.getSession();
+		String campName = (String) session.getAttribute("campName");
 		//現在日付の取得
 		LocalDate targetDay = LocalDate.now();
 		//前の週、次の週ボタンを押下したかで分岐
