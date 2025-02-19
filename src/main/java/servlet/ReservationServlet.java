@@ -206,6 +206,8 @@ public class ReservationServlet extends HttpServlet {
 			} catch (SQLException e) {
 				e.printStackTrace(); // エラー情報の出力
 			}
+			// 予約完了画面へ遷移
+			response.sendRedirect("reserved.jsp");
 		}
 	}
 }
