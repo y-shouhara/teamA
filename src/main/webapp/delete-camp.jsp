@@ -31,7 +31,7 @@ CampBean camp = (CampBean) request.getAttribute("camp");
 	</table>
 	<!-- 削除実行 -->
 	<form action="DeleteCamp" method="post">
-		<input type="hidden" name="location"> <input type="submit"
+		<input type="hidden" name="campName" value=<%=camp.getCampName()%>> <input type="submit"
 			value="削除する">
 	</form>
 	<!-- 一覧表示画面へ戻る -->

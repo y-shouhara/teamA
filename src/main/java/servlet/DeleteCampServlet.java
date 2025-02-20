@@ -64,15 +64,16 @@ public class DeleteCampServlet extends HttpServlet {
    	//DAOのインスタンス生成
    		CampDAO campDao = new CampDAO();
    		try {
-   			System.out.println("成功");
    			//削除メソッドを呼び出し、削除情報を取得
    			int deleteCount = campDao.deleteCampByCampName(campName);
+   			System.out.println("成功");
+   			System.out.println(deleteCount);
    		}catch (NumberFormatException | ClassNotFoundException | SQLException e) {
-   			System.out.println("失敗");
    			e.printStackTrace();
 			response.sendRedirect("error.jsp");
+			System.out.println("失敗");
 		}
-   		response.sendRedirect("CampList");
+   		response.sendRedirect(request.getContextPath() + "/CampList");
 	}
 
 }
