@@ -88,5 +88,18 @@ public class ReservationDAO {
 		}
 		return reservationBeanList;
 	}
-
+	
+    public boolean reservation(ReservationBean reservation) {
+        String query = "INSERT INTO reserve (camp_name, reserve_date) VALUES (?, ?)";
+//        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+//            stmt.setString(1, reservation.getCampName());
+//            stmt.setDate(2, reservation.getReserveDate());
+//            
+//            int rowsAffected = stmt.executeUpdate();
+//            return rowsAffected > 0;
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//            return false;
+//        }
+        return false;}
 }
