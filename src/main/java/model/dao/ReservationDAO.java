@@ -57,24 +57,24 @@ public class ReservationDAO {
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
 	 */
-	 
-	 public int deleteReservation(int reserveId) throws ClassNotFoundException, SQLException {
-   //戻り値用の変数定義
-		int deleteCount=0;
+
+	public int deleteReservation(int reserveId) throws ClassNotFoundException, SQLException {
+		//戻り値用の変数定義
+		int deleteCount = 0;
 		//⓵sql文の準備 今回はWHERE句に使用するので、プレースホルダを使用
-    String sql = "DELETE FROM reserve WHERE reserve_id = ?";
-    //⓶DBとの接続およびsqlの実行準備
-     try (Connection con = ConnectionManager.getConnection();
-         PreparedStatement pstmt = con.prepareStatement(sql)) {
-        //⓷プレースホルダに値をセット
-        pstmt.setInt(1, reserveId);
-        //⓸sqlの実行
-       deleteCount = pstmt.executeUpdate();
-        }
-    return deleteCount;
-    
-    }
-	 
+		String sql = "DELETE FROM reserve WHERE reserve_id = ?";
+		//⓶DBとの接続およびsqlの実行準備
+		try (Connection con = ConnectionManager.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql)) {
+			//⓷プレースホルダに値をセット
+			pstmt.setInt(1, reserveId);
+			//⓸sqlの実行
+			deleteCount = pstmt.executeUpdate();
+		}
+		return deleteCount;
+
+	}
+
 	//予約画面に表示するカレンダーの日付情報を取得
 	public void name(LocalDate targetDay) {
 
@@ -111,18 +111,18 @@ public class ReservationDAO {
 		}
 		return reservationBeanList;
 	}
-	
-    public boolean reservation(ReservationBean reservation) {
-        String query = "INSERT INTO reserve (camp_name, reserve_date) VALUES (?, ?)";
-//        try (PreparedStatement stmt = connection.prepareStatement(query)) {
-//            stmt.setString(1, reservation.getCampName());
-//            stmt.setDate(2, reservation.getReserveDate());
-//            
-//            int rowsAffected = stmt.executeUpdate();
-//            return rowsAffected > 0;
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//            return false;
-//        }
-        return false;}
+
+	public int reservation(ReservationBean reservation) throws SQLException, ClassNotFoundException {
+		int count =0;
+		String query = "INSERT INTO reserve (login_id, camp_name, reserve_date) VALUES (?, ?, ?)";
+		try (Connection con = ConnectionManager.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(query)) {
+			pstmt.setString(1,reservation.getLoginId() );
+			pstmt.setString(2,reservation.getCampName() );
+			pstmt.setDate(3,java.sql.Date.valueOf(reservation.getReserveDate()) );
+			//⓸sqlの実行
+			count = pstmt.executeUpdate();
+		}
+		return count;
+	}
 }

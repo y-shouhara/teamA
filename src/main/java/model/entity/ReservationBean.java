@@ -27,6 +27,12 @@ public class ReservationBean implements Serializable {
 		this.campBean = campBean;
 	}
 
+	public ReservationBean(String loginId, String campName, LocalDate reserveDate) {
+		this.loginId = loginId;
+		this.campName = campName;
+		this.reserveDate = reserveDate;
+	}
+
 	//アクセッサ
 	public int getReserveId() {
 		return reserveId;

@@ -28,10 +28,7 @@ import model.entity.ReservationBean;
 @WebServlet("/Reservation")
 public class ReservationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	// JDBCの接続情報
-	private static final String DB_URL = "jdbc:mysql://localhost:3306/mydatabase";
-    private static final String DB_USER = "root";
-    private static final String DB_PASSWORD = "root";
+
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -158,24 +155,27 @@ public class ReservationServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// データベースへ予約情報を登録 ＠近藤
+		request.setCharacterEncoding("UTF-8");
 		// hiddenデータを取得
 		HttpSession session = request.getSession();
-		String campId = (String) session.getAttribute("userName");
+		String loginId = (String) session.getAttribute("userName");
 		String campName = request.getParameter("campName");
-		String reserveDate = request.getParameter("reserveDate");
-		System.out.println(campName);
-		System.out.println(reserveDate);
+		LocalDate reserveDate = LocalDate.parse(request.getParameter("reserveDate"),
+				DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 		//インスタンス生成
 		ReservationDAO dao = new ReservationDAO();
-		
-		ReservationBean reservation = new ReservationBean();
-		
-		Reservation = dao.reservation(reservation);
-		
-		
-		
-		
+
+		ReservationBean reservation = new ReservationBean(loginId, campName, reserveDate);
+
+		try {
+			int result = dao.reservation(reservation);
 			// 予約完了画面へ遷移
 			response.sendRedirect("reserved.jsp");
+		} catch (ClassNotFoundException | SQLException e) {
+			System.out.println("失敗");
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+			response.sendRedirect("error.jsp");
 		}
 	}
+}
