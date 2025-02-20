@@ -85,8 +85,8 @@ public class RegisterUserServlet extends HttpServlet {
 			}
 
 		} catch (ClassNotFoundException | SQLException | NoSuchAlgorithmException e) {
-			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
+			response.sendRedirect("error.jsp");
 		}
 
 	}
