@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.dao.CampDAO;
+import model.entity.CampBean;
 
 /**
  * Servlet implementation class DeleteCampServlet
@@ -32,6 +33,23 @@ public class DeleteCampServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+		
+		//リクエストパラメータの取得
+		String campName = request.getParameter("campName");
+		//インスタンスの生成
+		CampDAO campDao = new CampDAO();
+		CampBean campBean = new CampBean();
+		campBean.setCampName(campName);
+		
+		try {
+			CampBean camp = campDao.getCampListByCampName(campBean); 
+	        request.setAttribute("camp", camp); // リクエストスコープに格納
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+		
+		RequestDispatcher rd = request.getRequestDispatcher("delete-camp.jsp");
+		rd.forward(request, response);
 	}
 
 	/**
@@ -42,21 +60,19 @@ public class DeleteCampServlet extends HttpServlet {
    		request.setCharacterEncoding("UTF-8");
    		System.out.println("削除ボタンが押下されました");
    		//リクエストパラメータを取得
-   		String strCampName =request.getParameter("campName");
+   		String campName =request.getParameter("campName");
    	//DAOのインスタンス生成
    		CampDAO campDao = new CampDAO();
    		try {
-   			//int型に変換
-   			String campName = strCampName;
-   			//削除メソッドを呼び出し、削除件数を取得
+   			System.out.println("成功");
+   			//削除メソッドを呼び出し、削除情報を取得
    			int deleteCount = campDao.deleteCampByCampName(campName);
    		}catch (NumberFormatException | ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+   			System.out.println("失敗");
+   			e.printStackTrace();
+			response.sendRedirect("error.jsp");
 		}
-   	//campListサーブレットにリクエストを転送(dopost)
-   			//postリクエスト転送なのでcampListのdopostメソッドが起動される。
-   			RequestDispatcher rd = request.getRequestDispatcher("delete-camp.jsp");
-   			rd.forward(request, response);
+   		response.sendRedirect("CampList");
 	}
 
 }

@@ -51,7 +51,30 @@ public class ReservationDAO {
 	}
 
 	//個人予約のキャンセル
-
+	/**
+	 * reserveから、該当reserve_idのレコードを削除する
+	 * @return 削除件数
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
+	 */
+	 
+	 public int deleteReservation(int reserveId) throws ClassNotFoundException, SQLException {
+   //戻り値用の変数定義
+		int deleteCount=0;
+		//⓵sql文の準備 今回はWHERE句に使用するので、プレースホルダを使用
+    String sql = "DELETE FROM reserve WHERE reserve_id = ?";
+    //⓶DBとの接続およびsqlの実行準備
+     try (Connection con = ConnectionManager.getConnection();
+         PreparedStatement pstmt = con.prepareStatement(sql)) {
+        //⓷プレースホルダに値をセット
+        pstmt.setInt(1, reserveId);
+        //⓸sqlの実行
+       deleteCount = pstmt.executeUpdate();
+        }
+    return deleteCount;
+    
+    }
+	 
 	//予約画面に表示するカレンダーの日付情報を取得
 	public void name(LocalDate targetDay) {
 

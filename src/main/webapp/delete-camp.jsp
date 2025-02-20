@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%@ page import="model.entity.CampBean" %>
+<%
+CampBean camp = (CampBean) request.getAttribute("camp");
+%>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -18,21 +22,21 @@
 			<th>最大人数</th>
 		</tr>
 		<tr>
-			<td>モラップキャンプ場</td>
-			<td>北海道</td>
-			<td>0123-25-2201</td>
-			<td>1300</td>
-			<td>6</td>
+			<td><%=camp.getCampName()%></td>
+			<td><%=camp.getLocation()%></td>
+			<td><%=camp.getTel()%></td>
+			<td><%=camp.getCharge()%></td>
+			<td><%=camp.getCapacity()%></td>
 		</tr>
 	</table>
 	<!-- 削除実行 -->
 	<form action="DeleteCamp" method="post">
-		<input type="hidden" name="location">
-	<input type="submit"value="削除する">
+		<input type="hidden" name="location"> <input type="submit"
+			value="削除する">
 	</form>
 	<!-- 一覧表示画面へ戻る -->
 	<form action="CampList" method="get">
-		<input type="submit"value="一覧表示へ戻る">
+		<input type="submit" value="一覧表示へ戻る">
 	</form>
 </body>
 </html>
