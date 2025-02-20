@@ -125,4 +125,39 @@ public class ReservationDAO {
 		}
 		return count;
 	}
+
+	public ReservationBean getDeleteReservation(int reservationId) throws ClassNotFoundException, SQLException {
+		ReservationBean reservationBean = null;
+		//SQL文の設定
+		String sql = "SELECT r.reserve_id,r.login_id,r.camp_name,r.reserve_date,r.insert_date,c.location,c.tel,c.charge,c.capacity";
+		sql += " FROM reserve as r";
+		sql += " LEFT JOIN camp as c ON c.camp_name = r.camp_name";
+		sql += " WHERE reserve_id=?";
+		//データベースに接続
+		try (Connection con = ConnectionManager.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);) {
+			//プレースホルダに値を設定
+			pstmt.setInt(1, reservationId);
+			//SQLの実行
+			ResultSet res = pstmt.executeQuery();
+			while (res.next()) {
+				//reserveテーブルデータ
+				int reserveId = res.getInt("reserve_id");
+				String loginId = res.getString("login_id");
+				String campName = res.getString("camp_name");
+				LocalDate reserveDate = res.getDate("reserve_date").toLocalDate();
+				LocalDateTime insertDate = res.getTimestamp("insert_date").toLocalDateTime();
+				//campテーブルデータ
+				String location = res.getString("location");
+				String tel = res.getString("tel");
+				int charge = res.getInt("charge");
+				int capacity = res.getInt("capacity");
+				CampBean campBean = new CampBean(campName, location, tel, charge, capacity);
+				 reservationBean = new ReservationBean(reserveId, loginId, campName, reserveDate,
+						insertDate, campBean);
+				//System.out.println(campName);
+			}
+		}
+		return reservationBean;
+	}
 }

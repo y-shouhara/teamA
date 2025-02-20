@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.dao.ReservationDAO;
+import model.entity.ReservationBean;
 
 /**
  * Servlet implementation class DeleteReservationServlet
@@ -34,10 +35,19 @@ public class DeleteReservationServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		//リクエストパラメータの取得
-		String reservationId = request.getParameter("id");
+		int reservationId = Integer.parseInt(request.getParameter("reserveId"));
 		System.out.println("確認画面へ");
 		
-		request.setAttribute("reservationId", reservationId);
+		//DAOのインスタンス生成
+		ReservationDAO reservationDao = new ReservationDAO();
+		try {
+			ReservationBean reservationBean= reservationDao.getDeleteReservation(reservationId);
+			System.out.println(reservationBean.getCampName());
+			request.setAttribute("reservationBean", reservationBean);
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
 		//確認画面へ遷移
 		RequestDispatcher rd = request.getRequestDispatcher("delete-reservation.jsp");
 		rd.forward(request, response);
@@ -50,7 +60,8 @@ public class DeleteReservationServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		System.out.println("削除ボタンが押下されました");
 		//リクエストパラメータを取得
-		String reservationId = request.getParameter("id");
+		int reservationId = Integer.parseInt(request.getParameter("reserveId"));
+		
 		
 		//DAOのインスタンス生成
 		ReservationDAO reservationDao = new ReservationDAO();
@@ -64,7 +75,7 @@ public class DeleteReservationServlet extends HttpServlet {
    			e.printStackTrace();
    			response.sendRedirect("error.jsp");
 		}
-		response.sendRedirect("confirmation.jsp");
+		response.sendRedirect(request.getContextPath() + "/Confirmation");
 	}
 
 }
