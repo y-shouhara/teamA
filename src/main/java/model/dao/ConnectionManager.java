@@ -12,11 +12,11 @@ public class ConnectionManager {
 	/**
 	* データベースのユーザー名
 	*/
-	private final static String USER = "root";
+	private final static String USER = "Camp";
 	/**
 	* データベースのパスワード
 	*/
-	private final static String PASSWORD = "root";
+	private final static String PASSWORD = "List";
 
 	/**
 	* データベースへの接続を取得して返します。

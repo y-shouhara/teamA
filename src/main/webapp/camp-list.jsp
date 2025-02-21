@@ -5,16 +5,12 @@
 <%
 List<CampBean> CampList = (List) request.getAttribute("CampList");
 %>
-<% 
-	int  managerId = 0;
-	if(session.getAttribute("managerId") != null){ 
-		managerId = (int) session.getAttribute("managerId");
-	}
+<%
+int managerId = 0;
+if (session.getAttribute("managerId") != null) {
+	managerId = (int) session.getAttribute("managerId");
+}
 %>
-
-<!--<%-->
-<!--	int managerId = Integer.parseInt((String)session.getAttribute("managerId")) ;-->
-<!--%>-->
 <!DOCTYPE html>
 <html>
 <head>
@@ -81,6 +77,15 @@ List<CampBean> CampList = (List) request.getAttribute("CampList");
 			<option value="沖縄県">沖縄県</option>
 		</select> <input type="submit" value="検索">
 	</form>
+	<%
+	if (managerId == 1) {
+	%>
+	<form action="RegisterCamp" method="get">
+		<input type="submit" value="登録">
+	</form>
+	<%
+	}
+	%>
 	<!-- データ一覧表示 -->
 	<table border="1">
 		<tr>
@@ -90,7 +95,9 @@ List<CampBean> CampList = (List) request.getAttribute("CampList");
 			<th>料金</th>
 			<th>最大人数</th>
 		</tr>
-		<%for (CampBean display : CampList) {%>
+		<%
+		for (CampBean display : CampList) {
+		%>
 		<tr>
 			<td><%=display.getCampName()%></td>
 			<td><%=display.getLocation()%></td>
@@ -98,35 +105,38 @@ List<CampBean> CampList = (List) request.getAttribute("CampList");
 			<td><%=display.getCharge()%></td>
 			<td><%=display.getCapacity()%></td>
 
-			<%if (managerId == 1) {%>
-			<td>
-				<form action="RegisterCamp" method="get">
-					<input type="submit" value="登録">
-				</form>
-			</td>
+			<%
+			if (managerId == 1) {
+			%>
 			<td>
 				<form action="UpdateCamp" method="get">
-					<input type="submit" value="編集">
-					<input type="hidden" name="campName" value=<%=display.getCampName()%> >
+					<input type="submit" value="編集"> <input type="hidden"
+						name="campName" value=<%=display.getCampName()%>>
 				</form>
 			</td>
 			<td>
 				<form action="DeleteCamp" method="get">
-					<input type="submit" value="削除">
-					<input type="hidden" name="campName" value=<%=display.getCampName()%> >
+					<input type="submit" value="削除"> <input type="hidden"
+						name="campName" value=<%=display.getCampName()%>>
 				</form>
 			</td>
-			<%} else {%>
+			<%
+			} else {
+			%>
 			<td>
 				<form action="Auth" method="get">
-					<input type="submit" value="予約">
-					<input type="hidden" name="transition" value="Reservation" >
-					<input type="hidden" name="campName" value=<%=display.getCampName()%>>
+					<input type="submit" value="予約"> <input type="hidden"
+						name="transition" value="Reservation"> <input
+						type="hidden" name="campName" value=<%=display.getCampName()%>>
 				</form>
 			</td>
-			<%}%>
+			<%
+			}
+			%>
 		</tr>
-		<%}%>
+		<%
+		}
+		%>
 	</table>
 </body>
 </html>
