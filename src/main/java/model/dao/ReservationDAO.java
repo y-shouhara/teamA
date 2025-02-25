@@ -113,13 +113,13 @@ public class ReservationDAO {
 	}
 
 	public int reservation(ReservationBean reservation) throws SQLException, ClassNotFoundException {
-		int count =0;
+		int count = 0;
 		String query = "INSERT INTO reserve (login_id, camp_name, reserve_date) VALUES (?, ?, ?)";
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(query)) {
-			pstmt.setString(1,reservation.getLoginId() );
-			pstmt.setString(2,reservation.getCampName() );
-			pstmt.setDate(3,java.sql.Date.valueOf(reservation.getReserveDate()) );
+			pstmt.setString(1, reservation.getLoginId());
+			pstmt.setString(2, reservation.getCampName());
+			pstmt.setDate(3, java.sql.Date.valueOf(reservation.getReserveDate()));
 			//⓸sqlの実行
 			count = pstmt.executeUpdate();
 		}
@@ -153,7 +153,7 @@ public class ReservationDAO {
 				int charge = res.getInt("charge");
 				int capacity = res.getInt("capacity");
 				CampBean campBean = new CampBean(campName, location, tel, charge, capacity);
-				 reservationBean = new ReservationBean(reserveId, loginId, campName, reserveDate,
+				reservationBean = new ReservationBean(reserveId, loginId, campName, reserveDate,
 						insertDate, campBean);
 				//System.out.println(campName);
 			}

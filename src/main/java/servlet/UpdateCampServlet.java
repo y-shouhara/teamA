@@ -79,8 +79,7 @@ public class UpdateCampServlet extends HttpServlet {
 			//画面遷移先の設定
 			response.sendRedirect(request.getContextPath() + "/CampList");
 		} catch (ClassNotFoundException | SQLException e) {
-			// TODO 自動生成された catch ブロック
-			e.printStackTrace();
+			response.sendRedirect("error.jsp");
 		}
 
 	}
