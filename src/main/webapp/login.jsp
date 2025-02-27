@@ -26,9 +26,9 @@
 	<% } %>
 	<form action="Auth" method="post">
 		<label>ユーザー名：</label>
-		<input type="text" name="userName"><br>
+		<input type="text" name="userName" required><br>
 		<label>パスワード：</label>
-		<input type="password" name="pass"><br>
+		<input type="password" name="pass" required><br>
 		<input type="submit" value="ログイン">
 		<input type="hidden" name="nextServlet" value=<%= nextServlet %>> 
 		<input type="hidden" name="campName" value=<%= campName %>> 

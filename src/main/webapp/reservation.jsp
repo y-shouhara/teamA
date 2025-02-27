@@ -26,9 +26,6 @@
 <link rel="stylesheet" href="CSS/reservation.css">
 </head>
 <body>
-	<!--	ヘッダー部分の読み込み-->
-	<jsp:include page="header.jsp" />
-	
 	<h1>予約画面</h1>
 	<h2><%= campName %></h2>
 	<div class="dateChangeBox">

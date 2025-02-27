@@ -16,9 +16,9 @@
 	<% } %>
 	<form action="RegisterUser" method="post">
 		<label>ユーザー名：</label>
-		<input type="text" name="userName"><br>
+		<input type="text" name="userName" required><br>
 		<label>パスワード：</label>
-		<input type="password" name="pass" minlength="5"><br>
+		<input type="password" name="pass" minlength="5" required><br>
 		<input type="submit" value="登録">
 	</form>
 	<form action="Login" method="get">

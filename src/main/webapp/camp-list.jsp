@@ -11,15 +11,49 @@ if (session.getAttribute("managerId") != null) {
 	managerId = (int) session.getAttribute("managerId");
 }
 %>
+<%
+String userName = (String) session.getAttribute("userName");
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="CSS/header.css">
 </head>
 <body>
-	<!--	ヘッダー部分の読み込み-->
-	<jsp:include page="header.jsp" />
+	<header class="header">
+		<!-- ログイン中かで表示内容を分岐 -->
+		<%
+		if (userName == null) {
+		%>
+		<div class="header__gest">
+			<label class="header__userLabel">ユーザー名：ゲスト さん</label>
+			<!-- ログイン画面へ遷移 -->
+			<form action="Login" method="get">
+				<input type="submit" value="ログイン">
+			</form>
+		</div>
+		<%
+		} else {
+		%>
+		<div class="header__gest">
+			<label class="header__userLabel">ユーザー名：<%=userName%> さん
+			</label>
+			<!-- ログアウト画面へ遷移 -->
+			<form action="Logout" method="get">
+				<input type="submit" value="ログアウト">
+			</form>
+		</div>
+		<%
+		}
+		%>
+		<!-- 予約確認画面へ遷移 -->
+		<form action="Auth" method="get">
+			<input type="submit" value="予約確認">
+			<input type="hidden" name="transition" value="Confirmation">
+		</form>
+	</header>
 
 	<h1>キャンプ場一覧</h1>
 
@@ -110,14 +144,14 @@ if (session.getAttribute("managerId") != null) {
 			%>
 			<td>
 				<form action="UpdateCamp" method="get">
-					<input type="submit" value="編集"> <input type="hidden"
-						name="campName" value=<%=display.getCampName()%>>
+					<input type="submit" value="編集">
+					 <input type="hidden" name="campName" value=<%=display.getCampName()%>>
 				</form>
 			</td>
 			<td>
 				<form action="DeleteCamp" method="get">
-					<input type="submit" value="削除"> <input type="hidden"
-						name="campName" value=<%=display.getCampName()%>>
+					<input type="submit" value="削除"> 
+					<input type="hidden" name="campName" value=<%=display.getCampName()%>>
 				</form>
 			</td>
 			<%
@@ -125,9 +159,9 @@ if (session.getAttribute("managerId") != null) {
 			%>
 			<td>
 				<form action="Auth" method="get">
-					<input type="submit" value="予約"> <input type="hidden"
-						name="transition" value="Reservation"> <input
-						type="hidden" name="campName" value=<%=display.getCampName()%>>
+					<input type="submit" value="予約"> 
+					<input type="hidden"name="transition" value="Reservation">
+					<input type="hidden" name="campName" value=<%=display.getCampName()%>>
 				</form>
 			</td>
 			<%

@@ -75,11 +75,6 @@ public class ReservationDAO {
 
 	}
 
-	//予約画面に表示するカレンダーの日付情報を取得
-	public void name(LocalDate targetDay) {
-
-	}
-
 	//キャンプ場名と日付で予約状況表示用データを取得
 	public List<ReservationBean> getAvailability(String campName, LocalDate targetDay)
 			throws ClassNotFoundException, SQLException {

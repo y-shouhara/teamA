@@ -14,7 +14,7 @@
 	<h1>キャンプ場編集</h1>
 	<form action="UpdateCamp" method="post">
 		<label>名称</label>
-		<input type="text" name="campName" value=<%= campBean.getCampName() %>><br>
+		<input type="text" name="campName" value=<%= campBean.getCampName() %> required><br>
 		<label>所在地</label>
 		<select name="location">
 			<option value=<%= campBean.getLocation() %>><%= campBean.getLocation() %></option>
@@ -67,11 +67,11 @@
 			<option value="沖縄県">沖縄県</option>
 		</select><br>
 		<label>電話番号</label>
-		<input type="tel" name="tel" value=<%= campBean.getTel() %>><br>
+		<input type="tel" name="tel" value=<%= campBean.getTel() %> required><br>
 		<label>料金</label>
-		<input type="number" name="charge" value=<%= campBean.getCharge() %>><br>
+		<input type="number" name="charge" value=<%= campBean.getCharge() %> required><br>
 		<label>最大人数</label>
-		<input type="number" name="capacity" value=<%= campBean.getCapacity() %>><br>
+		<input type="number" name="capacity" value=<%= campBean.getCapacity() %> required><br>
 		<input type="submit"value="編集">
 	</form>
 	<form action="CampList" method="get">
